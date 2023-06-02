@@ -14,7 +14,9 @@ const useGetGeo = () => {
   useEffect(() => {
     if (navigator !== undefined) {
       (async () => {
-        const thisIPRes = await axios.get("http://ip-api.com/json/");
+        const thisIPRes = await axios.get(
+          `https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.geoApiKey}`
+        );
         const thisIP = thisIPRes.data;
 
         try {
@@ -31,9 +33,9 @@ const useGetGeo = () => {
             });
           } else {
             setGeo({
-              ip: thisIP.query,
-              lat: thisIP.lat,
-              lon: thisIP.lon,
+              ip: thisIP.ip,
+              lat: thisIP.latitude,
+              lon: thisIP.longitude,
             });
           }
         } catch (e) {

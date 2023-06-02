@@ -7,8 +7,6 @@ import React, { useEffect } from "react";
 const Navigation = () => {
   const weather = useGetWeather();
 
-  console.log(weather);
-
   return (
     <header className="">
       <div className="">
