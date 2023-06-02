@@ -26,7 +26,7 @@ const useGetGeo = () => {
           if (["prompt", "granted"].includes(permission.state)) {
             navigator.geolocation.getCurrentPosition((pos) => {
               setGeo({
-                ip: thisIP.query,
+                ip: thisIP.ip,
                 lat: pos.coords.latitude,
                 lon: pos.coords.longitude,
               });
