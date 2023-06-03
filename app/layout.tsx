@@ -1,4 +1,4 @@
-import "./globals.scss";
+import "./styles/globals.scss";
 import { Inter } from "next/font/google";
 import { Metadata } from "next";
 import Navigation from "./components/layout/Navigation";
@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} flex flex-col gap-4`}>
         <Navigation />
         {children}
         <Footer />

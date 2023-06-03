@@ -23,10 +23,7 @@ const useGetGeo = () => {
           const permission = await navigator.permissions.query({
             name: "geolocation",
           });
-
-          console.log(permission.state);
           if (["prompt", "granted"].includes(permission.state)) {
-            console.log("a");
             navigator.geolocation.getCurrentPosition(
               (pos) => {
                 //use current lat and lon

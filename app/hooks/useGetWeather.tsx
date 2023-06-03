@@ -4,6 +4,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import useGetGeo from "./useGetGeo";
 
+type WeatherString = "unavailable" | "loading";
 interface Weather {
   description: string;
   icon: string;
@@ -11,7 +12,9 @@ interface Weather {
 }
 const useGetWeather = () => {
   const geo = useGetGeo();
-  const [weather, setWeather] = useState<string | Weather>("unavailable");
+  const [weather, setWeather] = useState<WeatherString | Weather>(
+    "unavailable"
+  );
 
   useEffect(() => {
     if (!!geo && typeof geo === "object") {
