@@ -23,15 +23,30 @@ const useGetGeo = () => {
           const permission = await navigator.permissions.query({
             name: "geolocation",
           });
+
+          console.log(permission.state);
           if (["prompt", "granted"].includes(permission.state)) {
-            navigator.geolocation.getCurrentPosition((pos) => {
-              setGeo({
-                ip: thisIP.ip,
-                lat: pos.coords.latitude,
-                lon: pos.coords.longitude,
-              });
-            });
+            console.log("a");
+            navigator.geolocation.getCurrentPosition(
+              (pos) => {
+                //use current lat and lon
+                setGeo({
+                  ip: thisIP.ip,
+                  lat: pos.coords.latitude,
+                  lon: pos.coords.longitude,
+                });
+              },
+              () => {
+                //use default ip lat and lon
+                setGeo({
+                  ip: thisIP.ip,
+                  lat: thisIP.latitude,
+                  lon: thisIP.longitude,
+                });
+              }
+            );
           } else {
+            //use default ip lat and lon
             setGeo({
               ip: thisIP.ip,
               lat: thisIP.latitude,

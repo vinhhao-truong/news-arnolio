@@ -21,6 +21,7 @@ const useGetWeather = () => {
       (async () => {
         try {
           const API_KEY = process.env.weatherApiKey;
+          setWeather("loading");
           const weatherRes = await axios.get(
             `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
           );
@@ -33,6 +34,7 @@ const useGetWeather = () => {
           });
         } catch (err) {
           console.log(err);
+          setWeather("unavailable");
         }
       })();
     }
