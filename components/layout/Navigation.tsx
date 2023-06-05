@@ -10,10 +10,9 @@ import Loader from "../common/Loader";
 const categories: string[] = [
   "business",
   "entertainment",
-  "general",
   "health",
   "science",
-  "sports",
+  "sport",
   "technology",
 ];
 

@@ -1,13 +1,8 @@
 export default interface News {
-  source?: {
-    id?: string;
-    name?: string;
-  };
-  author?: string;
   title?: string;
-  description?: string;
+  body?: string;
   url?: string;
-  urlToImage?: string;
-  publishedAt?: string;
-  content?: string;
+  image?: string;
+  dateTime?: string;
+  source?: string;
 }

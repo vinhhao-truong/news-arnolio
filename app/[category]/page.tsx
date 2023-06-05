@@ -9,10 +9,9 @@ import { capitaliseFirst } from "../../lib/utils/format/formatString";
 const categories: string[] = [
   "business",
   "entertainment",
-  "general",
   "health",
   "science",
-  "sports",
+  "sport",
   "technology",
 ];
 

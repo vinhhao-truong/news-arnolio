@@ -3,133 +3,11 @@
 import NewsType from "@/lib/interfaces/News";
 import ReactProps from "@/lib/interfaces/ReactProp";
 import { capitaliseFirst } from "@/lib/utils/format/formatString";
-import { useGetTopHeadlinesQuery } from "@/services/redux/querySlices/news/topHeadlines";
+import { useGetTopHeadlinesQuery } from "@/services/redux/querySlices/news/articles";
 import React from "react";
 import Loader from "../Loader";
 import News from "../News";
 import TopNews from "../TopNews";
-
-const dummyNewsList: NewsType[] = [
-  {
-    source: {
-      id: "cnn",
-      name: "CNN",
-    },
-    author: "Elisabeth Buchwald",
-    title:
-      "From teachers to waiters: The industries that haven't bounced back from the pandemic - CNN",
-    description:
-      "Economists have been closely watching monthly job reports for signs of cracks in the labor market that offer clues on when a recession could start. But their predictions have been tested month after month with stronger-than-expected gains.",
-    url: "https://www.cnn.com/2023/06/03/business/us-job-gains-may/index.html",
-    urlToImage:
-      "https://media.cnn.com/api/v1/images/stellar/prod/230601141252-us-pandemic-job-losses-hospitality-waiters.jpg?c=16x9&q=w_800,c_fill",
-    publishedAt: "2023-06-04T00:56:00Z",
-    content:
-      "Economists have been closely watching monthly US job reports for signs of cracks in the labor market that could offer clues as to when a recession could start. But their predictions have been tested … [+3079 chars]",
-  },
-  {
-    source: {
-      id: "cnn",
-      name: "CNN",
-    },
-    author: "Elisabeth Buchwald",
-    title:
-      "From teachers to waiters: The industries that haven't bounced back from the pandemic - CNN",
-    description:
-      "Economists have been closely watching monthly job reports for signs of cracks in the labor market that offer clues on when a recession could start. But their predictions have been tested month after month with stronger-than-expected gains.",
-    url: "https://www.cnn.com/2023/06/03/business/us-job-gains-may/index.html",
-    urlToImage:
-      "https://media.cnn.com/api/v1/images/stellar/prod/230601141252-us-pandemic-job-losses-hospitality-waiters.jpg?c=16x9&q=w_800,c_fill",
-    publishedAt: "2023-06-04T00:56:00Z",
-    content:
-      "Economists have been closely watching monthly US job reports for signs of cracks in the labor market that could offer clues as to when a recession could start. But their predictions have been tested … [+3079 chars]",
-  },
-  {
-    source: {
-      id: "cnn",
-      name: "CNN",
-    },
-    author: "Elisabeth Buchwald",
-    title:
-      "From teachers to waiters: The industries that haven't bounced back from the pandemic - CNN",
-    description:
-      "Economists have been closely watching monthly job reports for signs of cracks in the labor market that offer clues on when a recession could start. But their predictions have been tested month after month with stronger-than-expected gains.",
-    url: "https://www.cnn.com/2023/06/03/business/us-job-gains-may/index.html",
-    urlToImage:
-      "https://media.cnn.com/api/v1/images/stellar/prod/230601141252-us-pandemic-job-losses-hospitality-waiters.jpg?c=16x9&q=w_800,c_fill",
-    publishedAt: "2023-06-04T00:56:00Z",
-    content:
-      "Economists have been closely watching monthly US job reports for signs of cracks in the labor market that could offer clues as to when a recession could start. But their predictions have been tested … [+3079 chars]",
-  },
-  {
-    source: {
-      id: "cnn",
-      name: "CNN",
-    },
-    author: "Elisabeth Buchwald",
-    title:
-      "From teachers to waiters: The industries that haven't bounced back from the pandemic - CNN",
-    description:
-      "Economists have been closely watching monthly job reports for signs of cracks in the labor market that offer clues on when a recession could start. But their predictions have been tested month after month with stronger-than-expected gains.",
-    url: "https://www.cnn.com/2023/06/03/business/us-job-gains-may/index.html",
-    urlToImage:
-      "https://media.cnn.com/api/v1/images/stellar/prod/230601141252-us-pandemic-job-losses-hospitality-waiters.jpg?c=16x9&q=w_800,c_fill",
-    publishedAt: "2023-06-04T00:56:00Z",
-    content:
-      "Economists have been closely watching monthly US job reports for signs of cracks in the labor market that could offer clues as to when a recession could start. But their predictions have been tested … [+3079 chars]",
-  },
-  {
-    source: {
-      id: "cnn",
-      name: "CNN",
-    },
-    author: "Elisabeth Buchwald",
-    title:
-      "From teachers to waiters: The industries that haven't bounced back from the pandemic - CNN",
-    description:
-      "Economists have been closely watching monthly job reports for signs of cracks in the labor market that offer clues on when a recession could start. But their predictions have been tested month after month with stronger-than-expected gains.",
-    url: "https://www.cnn.com/2023/06/03/business/us-job-gains-may/index.html",
-    urlToImage:
-      "https://media.cnn.com/api/v1/images/stellar/prod/230601141252-us-pandemic-job-losses-hospitality-waiters.jpg?c=16x9&q=w_800,c_fill",
-    publishedAt: "2023-06-04T00:56:00Z",
-    content:
-      "Economists have been closely watching monthly US job reports for signs of cracks in the labor market that could offer clues as to when a recession could start. But their predictions have been tested … [+3079 chars]",
-  },
-  {
-    source: {
-      id: "cnn",
-      name: "CNN",
-    },
-    author: "Elisabeth Buchwald",
-    title:
-      "From teachers to waiters: The industries that haven't bounced back from the pandemic - CNN",
-    description:
-      "Economists have been closely watching monthly job reports for signs of cracks in the labor market that offer clues on when a recession could start. But their predictions have been tested month after month with stronger-than-expected gains.",
-    url: "https://www.cnn.com/2023/06/03/business/us-job-gains-may/index.html",
-    urlToImage:
-      "https://media.cnn.com/api/v1/images/stellar/prod/230601141252-us-pandemic-job-losses-hospitality-waiters.jpg?c=16x9&q=w_800,c_fill",
-    publishedAt: "2023-06-04T00:56:00Z",
-    content:
-      "Economists have been closely watching monthly US job reports for signs of cracks in the labor market that could offer clues as to when a recession could start. But their predictions have been tested … [+3079 chars]",
-  },
-  {
-    source: {
-      id: "cnn",
-      name: "CNN",
-    },
-    author: "Elisabeth Buchwald",
-    title:
-      "From teachers to waiters: The industries that haven't bounced back from the pandemic - CNN",
-    description:
-      "Economists have been closely watching monthly job reports for signs of cracks in the labor market that offer clues on when a recession could start. But their predictions have been tested month after month with stronger-than-expected gains.",
-    url: "https://www.cnn.com/2023/06/03/business/us-job-gains-may/index.html",
-    urlToImage:
-      "https://media.cnn.com/api/v1/images/stellar/prod/230601141252-us-pandemic-job-losses-hospitality-waiters.jpg?c=16x9&q=w_800,c_fill",
-    publishedAt: "2023-06-04T00:56:00Z",
-    content:
-      "Economists have been closely watching monthly US job reports for signs of cracks in the labor market that could offer clues as to when a recession could start. But their predictions have been tested … [+3079 chars]",
-  },
-];
 
 interface NewsListProps extends ReactProps {
   category?: string | null;
@@ -164,7 +42,7 @@ const NewsList: React.FC<NewsListProps> = ({ category, keyword }) => {
             {newsList.slice(1, 3).map((news, idx) => {
               return (
                 <li key={`news-${idx}`}>
-                  <News news={news} noImg isDesLong />
+                  <News news={news} noImg desLimit={150} />
                 </li>
               );
             })}
@@ -183,7 +61,7 @@ const NewsList: React.FC<NewsListProps> = ({ category, keyword }) => {
           {newsList.slice(12).map((news, idx) => {
             return (
               <li key={`news-${idx}`}>
-                <News news={news} />
+                <News news={news} desLimit={220} />
               </li>
             );
           })}

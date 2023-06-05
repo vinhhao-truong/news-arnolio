@@ -1,6 +1,6 @@
 "use client";
 
-import TopNews from "@/lib/interfaces/News";
+import News from "@/lib/interfaces/News";
 import ReactProps from "@/lib/interfaces/ReactProp";
 import moment from "moment";
 import Image from "next/image";
@@ -10,7 +10,7 @@ import { getClasses } from "@/lib/utils/get/getProps";
 import { truncate } from "@/lib/utils/format/formatString";
 
 interface NewsProps extends ReactProps {
-  news: TopNews;
+  news: News;
 }
 const TopNews: React.FC<NewsProps> = ({ news, className }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -33,7 +33,7 @@ const TopNews: React.FC<NewsProps> = ({ news, className }) => {
           </h1>
           <MotionImage
             src={
-              news.urlToImage ||
+              news.image ||
               "https://static.vecteezy.com/system/resources/thumbnails/006/299/370/original/world-breaking-news-digital-earth-hud-rotating-globe-rotating-free-video.jpg"
             }
             alt={news.title || "news-img"}
@@ -46,9 +46,9 @@ const TopNews: React.FC<NewsProps> = ({ news, className }) => {
             {/* <h2 className="leading-snug">
               {truncate(news.description, true, 80)}
             </h2> */}
-            <h3 className="italic">{news.author}</h3>
+            <h3 className="italic">{news.source}</h3>
             <h3 className="text-sm text-gray-200">
-              {moment(news.publishedAt).fromNow()}
+              {moment(news.dateTime).fromNow()}
             </h3>
           </section>
         </div>

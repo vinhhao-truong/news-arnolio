@@ -13,9 +13,9 @@ import getRandomImg from "@/lib/utils/get/getRandomImg";
 interface NewsProps extends ReactProps {
   news: News;
   noImg?: boolean;
-  isDesLong?: boolean;
+  desLimit?: number;
 }
-const News: React.FC<NewsProps> = ({ news, className, noImg, isDesLong }) => {
+const News: React.FC<NewsProps> = ({ news, className, noImg, desLimit }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const MotionImage = motion(Image);
@@ -44,8 +44,16 @@ const News: React.FC<NewsProps> = ({ news, className, noImg, isDesLong }) => {
         >
           {isImgShowed && (
             <picture className="w-full overflow-hidden">
-              <MotionImage
-                src={news.urlToImage || getRandomImg(news.title || "a")}
+              {/* <MotionImage
+                src={news.image || getRandomImg(news.title || "a")}
+                alt={news.title || "news-img"}
+                width={256}
+                height={370}
+                className="object-cover"
+                animate={isHovered ? { scale: 1.3 } : { scale: 1 }}
+              /> */}
+              <motion.img
+                src={news.image || getRandomImg(news.title || "a")}
                 alt={news.title || "news-img"}
                 width={256}
                 height={370}
@@ -56,11 +64,11 @@ const News: React.FC<NewsProps> = ({ news, className, noImg, isDesLong }) => {
           )}
           <section className="col-span-2">
             <h2 className="leading-snug">
-              {truncate(news.description, true, isDesLong ? 150 : 80)}
+              {truncate(news.body, true, desLimit || 80)}
             </h2>
-            <h3 className="italic text-right">{news.author}</h3>
+            <h3 className="italic text-right">{news.source}</h3>
             <h3 className="text-sm text-right text-gray-500">
-              {moment(news.publishedAt).fromNow()}
+              {moment(news.dateTime).fromNow()}
             </h3>
           </section>
         </div>
