@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Loader.module.scss";
-import { getClasses, getStyles } from "@/app/lib/utils/get/getProps";
-import ReactProp from "@/app/lib/interfaces/ReactProp";
+import { getClasses, getStyles } from "@/lib/utils/get/getProps";
+import ReactProps from "@/lib/interfaces/ReactProp";
 
-interface LoaderProps extends ReactProp {
+interface LoaderProps extends ReactProps {
   color?: string;
   type:
     | "Surrounded Dot"

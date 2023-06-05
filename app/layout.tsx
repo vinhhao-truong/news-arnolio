@@ -1,10 +1,12 @@
-import "./styles/globals.scss";
-import { Inter } from "next/font/google";
+import "../styles/globals.scss";
+import { Inter, Playfair_Display, Lora } from "next/font/google";
 import { Metadata } from "next";
-import Navigation from "./components/layout/Navigation";
-import Footer from "./components/layout/Footer";
+import Navigation from "../components/layout/Navigation";
+import Footer from "../components/layout/Footer";
+import PageContainer from "../components/layout/PageContainer";
+import Provider from "../services/redux/Provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Lora({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,9 +24,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} flex flex-col gap-4`}>
-        <Navigation />
-        {children}
-        <Footer />
+        <Provider>
+          <Navigation />
+          <PageContainer>{children}</PageContainer>
+          <PageContainer>
+            <Footer />
+          </PageContainer>
+        </Provider>
       </body>
     </html>
   );

@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="m-4">
+    <footer className="py-4">
       Built with{" "}
       <a
         className="text-blue-600 hover:underline"
