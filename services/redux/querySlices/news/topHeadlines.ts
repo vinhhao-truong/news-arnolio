@@ -1,6 +1,6 @@
 "use client";
 
-import News from "@/app/lib/interfaces/News";
+import News from "@/lib/interfaces/News";
 import { newsApi } from "./../newsApi";
 
 interface Headlines {
