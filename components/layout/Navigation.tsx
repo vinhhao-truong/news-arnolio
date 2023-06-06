@@ -3,6 +3,7 @@
 import useGetGeo from "@/hooks/useGetGeo";
 import useGetWeather from "@/hooks/useGetWeather";
 import { capitaliseFirst } from "@/lib/utils/format/formatString";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import Loader from "../common/Loader";
@@ -23,7 +24,11 @@ const Navigation = () => {
     <header className="">
       <div className="flex justify-center">
         <div className="flex items-center justify-between px-2 md:px-4 min-[1440px]:px-0 w-full max-w-[1440px]">
-          <Link href="/" className="">
+          <Link
+            href="/"
+            className="flex items-center gap-2 text-xl font-semibold"
+          >
+            <Image src="/favicon-32x32.png" alt="logo" width={32} height={32} />{" "}
             ARNOLIO-NEWS
           </Link>
 

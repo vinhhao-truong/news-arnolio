@@ -6,10 +6,10 @@ const Footer = () => {
       Built with{" "}
       <a
         className="text-blue-600 hover:underline"
-        href="https://newsapi.org"
+        href="https://newsapi.ai"
         target="_blank"
       >
-        NewsAPI
+        newsapi.ai
       </a>{" "}
       by{" "}
       <a

@@ -85,7 +85,7 @@ const NewsList: React.FC<NewsListProps> = ({ category, keyword }) => {
     <div className="flex flex-col items-center gap-6">
       <Loader type="Spin Stretch" color="#023e8a" />
       <h1 className="text-system=blue">
-        getting{category && ` "${capitaliseFirst(category)}"`}
+        loading{category && ` "${capitaliseFirst(category)}"`}
         {keyword && ` "${keyword}"`} news...
       </h1>
     </div>
