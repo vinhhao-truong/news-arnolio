@@ -3,8 +3,10 @@
 import NewsType from "@/lib/interfaces/News";
 import ReactProps from "@/lib/interfaces/ReactProp";
 import { capitaliseFirst } from "@/lib/utils/format/formatString";
+import { geoSelector } from "@/services/redux/appSlices/geoSlice";
 import { useGetTopHeadlinesQuery } from "@/services/redux/querySlices/news/articles";
 import React from "react";
+import { useSelector } from "react-redux";
 import Loader from "../Loader";
 import News from "../News";
 import TopNews from "../TopNews";
@@ -14,17 +16,23 @@ interface NewsListProps extends ReactProps {
   keyword?: string | null;
 }
 const NewsList: React.FC<NewsListProps> = ({ category, keyword }) => {
+  const country = useSelector(geoSelector).country;
+
   const {
     data: headlines,
     isLoading,
     isFetching,
     isError,
-  } = useGetTopHeadlinesQuery({
-    category,
-    keyword,
-  });
+  } = useGetTopHeadlinesQuery(
+    {
+      category,
+      keyword,
+      country,
+    },
+    { skip: !country }
+  );
 
-  const newsList = headlines?.data;
+  const newsList: NewsType[] = headlines && headlines.data;
 
   const isAllLoading = isLoading || isFetching;
 

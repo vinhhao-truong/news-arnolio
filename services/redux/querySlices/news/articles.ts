@@ -21,7 +21,7 @@ const articlesApi = newsApi.injectEndpoints({
               keyword ? `,{"keyword":"${keyword}","keywordLoc":"body"}` : ""
             },{"conceptUri":"http://en.wikipedia.org/wiki/${
               country || "Australia"
-            }"}]},"$filter":{"forceMaxDataTimeWindow":"31"}}`,
+            }"},{\"lang\":\"eng\"}]},"$filter":{"forceMaxDataTimeWindow":"31"}}`,
             resultType: "articles",
             articlesSortBy: "date",
             articlesCount: 20,
@@ -31,6 +31,18 @@ const articlesApi = newsApi.injectEndpoints({
             articlesPage: page,
           },
         };
+      },
+      merge: (currentCache, newNews) => {
+        currentCache.data.push(
+          //@ts-ignore
+          newNews?.articles?.results.map((news) => ({
+            ...news,
+            source: news?.source?.title,
+          }))
+        );
+      },
+      forceRefetch: ({ currentArg, previousArg }) => {
+        return currentArg !== previousArg;
       },
       providesTags: () => [],
       transformResponse: (res): Headlines => {

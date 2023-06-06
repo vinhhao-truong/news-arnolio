@@ -1,7 +1,9 @@
 "use client";
 
+import { updateCountry } from "@/services/redux/appSlices/geoSlice";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 interface Geo {
   ip: string | number;
@@ -10,6 +12,7 @@ interface Geo {
 }
 const useGetGeo = () => {
   const [geo, setGeo] = useState<Geo | boolean>(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (navigator !== undefined) {
@@ -18,6 +21,7 @@ const useGetGeo = () => {
           `https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.geoApiKey}`
         );
         const thisIP = thisIPRes.data;
+        dispatch(updateCountry(thisIP?.country_name));
 
         try {
           const permission = await navigator.permissions.query({
