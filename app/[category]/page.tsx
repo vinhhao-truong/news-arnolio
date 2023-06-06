@@ -1,6 +1,5 @@
 "use client";
-
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, Metadata } from "next";
 import React from "react";
 import { notFound, useParams } from "next/navigation";
 import NewsList from "../../components/common/NewsList";
