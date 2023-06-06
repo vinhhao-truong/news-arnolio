@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import Loader from "../Loader";
 import News from "../News";
 import TopNews from "../TopNews";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface NewsListProps extends ReactProps {
   category?: string | null;
@@ -18,6 +19,7 @@ interface NewsListProps extends ReactProps {
 const NewsList: React.FC<NewsListProps> = ({ category, keyword }) => {
   const country = useSelector(geoSelector).country;
   const [page, setPage] = useState<number>(1);
+  const searchParam = useSearchParams();
 
   const {
     data: newsData,
@@ -47,6 +49,12 @@ const NewsList: React.FC<NewsListProps> = ({ category, keyword }) => {
   };
 
   useEffect(() => {
+    if (searchParam) {
+      setNewsList([]);
+    }
+  }, [searchParam]);
+
+  useEffect(() => {
     if (window !== undefined) {
       window.addEventListener("scroll", handleScroll);
       return () => window.removeEventListener("scroll", handleScroll);
@@ -58,13 +66,6 @@ const NewsList: React.FC<NewsListProps> = ({ category, keyword }) => {
       setNewsList((prev) => [...prev, ...newsData.data]);
     }
   }, [newsData]);
-
-  useEffect(() => {
-    if (newsList.length > 0 && newsData) {
-      console.log("length", newsList.length);
-      console.log("total", newsData.total);
-    }
-  }, [newsList, newsData]);
 
   const isAllLoading = isLoading || isFetching;
 

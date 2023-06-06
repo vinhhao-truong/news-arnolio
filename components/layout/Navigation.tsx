@@ -9,6 +9,7 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Loader from "../common/Loader";
+import SearchBar from "../common/SearchBar";
 
 const categories: string[] = [
   "business",
@@ -67,19 +68,22 @@ const Navigation = () => {
       </div>
 
       <div className="flex justify-center bg-black">
-        <nav className="w-full overflow-x-auto text-white max-w-[1440px] px-2 md:px-4 min-[1440px]:px-0">
-          <ul className="flex w-max">
-            {categories.map((c, idx) => {
-              return (
-                <li className="py-2 pr-8" key={`nav-category-${idx}`}>
-                  <Link className="hover:text-gray-100" href={`/${c}`}>
-                    {capitaliseFirst(c)}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+        <div className="flex items-center justify-between max-w-[1440px] w-full">
+          <nav className="w-full overflow-x-auto text-white px-2 md:px-4 min-[1440px]:px-0">
+            <ul className="flex w-max">
+              {categories.map((c, idx) => {
+                return (
+                  <li className="py-2 pr-4 md:pr-8" key={`nav-category-${idx}`}>
+                    <Link className="hover:text-gray-100" href={`/${c}`}>
+                      {capitaliseFirst(c)}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+          <SearchBar />
+        </div>
       </div>
     </header>
   );
