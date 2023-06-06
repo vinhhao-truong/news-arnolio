@@ -5,7 +5,7 @@ import ReactProps from "@/lib/interfaces/ReactProp";
 import { capitaliseFirst } from "@/lib/utils/format/formatString";
 import { geoSelector } from "@/services/redux/appSlices/geoSlice";
 import { useGetTopHeadlinesQuery } from "@/services/redux/querySlices/news/articles";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Loader from "../Loader";
 import News from "../News";
@@ -17,9 +17,10 @@ interface NewsListProps extends ReactProps {
 }
 const NewsList: React.FC<NewsListProps> = ({ category, keyword }) => {
   const country = useSelector(geoSelector).country;
+  const [page, setPage] = useState<number>(1);
 
   const {
-    data: headlines,
+    data: newsData,
     isLoading,
     isFetching,
     isError,
@@ -28,11 +29,42 @@ const NewsList: React.FC<NewsListProps> = ({ category, keyword }) => {
       category,
       keyword,
       country,
+      page,
     },
     { skip: !country }
   );
+  const [newsList, setNewsList] = useState<NewsType[]>([]);
 
-  const newsList: NewsType[] = headlines && headlines.data;
+  const handleScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop !==
+        document.documentElement.offsetHeight ||
+      isLoading
+    ) {
+      return;
+    }
+    setPage((prev) => prev + 1);
+  };
+
+  useEffect(() => {
+    if (window !== undefined) {
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
+  }, [isFetching]);
+
+  useEffect(() => {
+    if (newsData) {
+      setNewsList((prev) => [...prev, ...newsData.data]);
+    }
+  }, [newsData]);
+
+  useEffect(() => {
+    if (newsList.length > 0 && newsData) {
+      console.log("length", newsList.length);
+      console.log("total", newsData.total);
+    }
+  }, [newsList, newsData]);
 
   const isAllLoading = isLoading || isFetching;
 
@@ -49,7 +81,7 @@ const NewsList: React.FC<NewsListProps> = ({ category, keyword }) => {
     return <div className="">Error</div>;
   }
 
-  return newsList && !isAllLoading && newsList?.length > 0 ? (
+  return newsList && newsList?.length > 0 ? (
     <>
       {/* md -> large */}
       <div className="hidden md:block">
@@ -96,6 +128,23 @@ const NewsList: React.FC<NewsListProps> = ({ category, keyword }) => {
             );
           })}
         </ul>
+      </div>
+      <div className="flex flex-col items-center gap-2 mt-8">
+        {newsList.length === newsData.total ? (
+          <p className="italic">You have reached the end of the page...</p>
+        ) : (
+          <>
+            <Loader
+              type="Three Fading Dots"
+              className="w-[60px]"
+              color="#023e8a"
+            />
+            <h1 className="text-system=blue">
+              loading more{category && ` "${capitaliseFirst(category)}"`}
+              {keyword && ` "${keyword}"`} news...
+            </h1>
+          </>
+        )}
       </div>
     </>
   ) : isAllLoading ? (

@@ -24,7 +24,7 @@ const Navigation = () => {
   const country = useSelector(geoSelector).country;
 
   return (
-    <header className="">
+    <header className="sticky top-0 z-10 bg-white">
       <div className="flex justify-center">
         <div className="flex items-center justify-between px-2 md:px-4 min-[1440px]:px-0 w-full max-w-[1440px]">
           <Link

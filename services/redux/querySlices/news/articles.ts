@@ -10,7 +10,7 @@ interface Headlines {
 const articlesApi = newsApi.injectEndpoints({
   endpoints: (build) => ({
     getTopHeadlines: build.query({
-      query: ({ keyword, category, page = 1, country }) => {
+      query: ({ keyword, category, page, country }) => {
         return {
           url: "/article/getArticles",
           method: "POST",
@@ -35,14 +35,21 @@ const articlesApi = newsApi.injectEndpoints({
       merge: (currentCache, newNews) => {
         currentCache.data.push(
           //@ts-ignore
-          newNews?.articles?.results.map((news) => ({
+          ...newNews?.articles?.results.map((news) => ({
             ...news,
             source: news?.source?.title,
           }))
         );
       },
       forceRefetch: ({ currentArg, previousArg }) => {
-        return currentArg !== previousArg;
+        if (!previousArg) {
+          return true;
+        }
+
+        return (
+          currentArg.category !== previousArg.category ||
+          currentArg.keyword !== previousArg.keyword
+        );
       },
       providesTags: () => [],
       transformResponse: (res): Headlines => {
