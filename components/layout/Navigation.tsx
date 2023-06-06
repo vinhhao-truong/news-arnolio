@@ -3,9 +3,11 @@
 import useGetGeo from "@/hooks/useGetGeo";
 import useGetWeather from "@/hooks/useGetWeather";
 import { capitaliseFirst } from "@/lib/utils/format/formatString";
+import { geoSelector } from "@/services/redux/appSlices/geoSlice";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import Loader from "../common/Loader";
 
 const categories: string[] = [
@@ -19,6 +21,7 @@ const categories: string[] = [
 
 const Navigation = () => {
   const weather = useGetWeather();
+  const country = useSelector(geoSelector).country;
 
   return (
     <header className="">
@@ -51,6 +54,12 @@ const Navigation = () => {
                 <h3 className="hidden min-[480px]:block">
                   {weather.description}
                 </h3>
+                <img
+                  src={`https://www.sciencekids.co.nz/images/pictures/flags680/${country}.jpg`}
+                  alt="weather-icon"
+                  width={48}
+                  height={48}
+                />
               </>
             )}
           </div>

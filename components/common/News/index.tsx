@@ -43,7 +43,7 @@ const News: React.FC<NewsProps> = ({ news, className, noImg, desLimit }) => {
           } gap-2`}
         >
           {isImgShowed && (
-            <picture className="w-full overflow-hidden">
+            <picture className="w-full overflow-hidden max-h-[200px]">
               {/* <MotionImage
                 src={news.image || getRandomImg(news.title || "a")}
                 alt={news.title || "news-img"}
@@ -54,10 +54,8 @@ const News: React.FC<NewsProps> = ({ news, className, noImg, desLimit }) => {
               /> */}
               <motion.img
                 src={news.image || getRandomImg(news.title || "a")}
-                alt={news.title || "news-img"}
-                width={256}
-                height={370}
-                className="object-cover"
+                alt={"news-img"}
+                className="object-contain w-full"
                 animate={isHovered ? { scale: 1.3 } : { scale: 1 }}
               />
             </picture>

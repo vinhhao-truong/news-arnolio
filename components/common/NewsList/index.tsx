@@ -36,6 +36,15 @@ const NewsList: React.FC<NewsListProps> = ({ category, keyword }) => {
 
   const isAllLoading = isLoading || isFetching;
 
+  if (!country) {
+    return (
+      <div className="flex flex-col items-center gap-6">
+        <Loader type="Spin Stretch" color="#023e8a" />
+        <h1 className="text-system=blue">acquiring current country...</h1>
+      </div>
+    );
+  }
+
   if (isError) {
     return <div className="">Error</div>;
   }
