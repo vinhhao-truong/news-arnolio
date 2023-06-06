@@ -10,9 +10,16 @@ const inter = Lora({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Arnolio News",
-  description: "Archived news for demo purpose.",
+  description: "News for demo purpose.",
   authors: {
     name: "Arnold Truong",
+  },
+  openGraph: {
+    images: [{ url: "/apple-touch-icon.png" }],
+    title: "Arnolio News",
+    type: "article",
+    siteName: "Arnolio News",
+    description: "News for demo purpose.",
   },
 };
 
